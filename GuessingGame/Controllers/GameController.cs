@@ -16,9 +16,18 @@ namespace GuessingGame.Controllers
             return View();
         }
 
+        private bool GuessWasCorrect(int guess) =>
+            guess == (int)Session["Answer"];
+
         [HttpPost]
         public ActionResult Index(GameModel model)
         {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Win = GuessWasCorrect(model.Guess);
+            }
+            
+
             return View(model);
         }
     }
